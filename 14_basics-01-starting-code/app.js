@@ -4,6 +4,17 @@ const app = Vue.createApp({
       courseGoal: 'Finish the course and learn Vue',
       vueLink: 'https://vuejs.org/'
     };
+  },
+  methods: {
+    outputGoal() {
+      // calculate a random number between 0 and 1
+      const randomNumber = Math.random();
+      if (randomNumber < 0.5) {
+        return 'Learn Vue!';
+      } else {
+        return 'Master Vue!';
+      }
+    }
   }
 });
 
