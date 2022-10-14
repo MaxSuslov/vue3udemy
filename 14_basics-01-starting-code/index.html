@@ -18,9 +18,10 @@
     </header>
     <section id="user-goal">
       <h2>My Course Goal</h2>
-      <!-- Add parantheses to call a function like in regular JS -->
-      <!-- You can execute simple JS right between the curly braces -->
-      <p>{{ outputGoal() }}</p>
+      <!-- with v-html you can use html syntax or call functions -->
+      <!-- Not recommended as default because of security issues (XSS) -->
+      <p v-html="courseGoalB"></p>
+      <!-- <p v-html="outputGoal()"></p> -->
       <!-- Binding a link from data into html -->
       <p>Learn more <a v-bind:href="vueLink">about Vue</a></p>
     </section>
