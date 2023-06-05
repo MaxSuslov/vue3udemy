@@ -9,6 +9,15 @@ const app = Vue.createApp({
       monsterHealth: 100
     };
   },
+  // outsource the logic from html to computed property
+  computed: {
+    monsterBarStyles() {
+      return { width: this.monsterHealth + '%' };
+    },
+    playerBarStyles() {
+      return { width: this.playerHealth + '%' };
+    }
+  },
   methods: {
     attackMonster() {
       // calculate a random nr. between 5 and 12
