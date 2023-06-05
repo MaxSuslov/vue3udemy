@@ -21,7 +21,6 @@ const app = Vue.createApp({
     attackPlayer() {
       const attackValue = getRandomValue(15, 8);
       this.playerHealth -= attackValue;
-      this.attackMonster();
     }
   }
 });
