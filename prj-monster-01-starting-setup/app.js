@@ -9,9 +9,9 @@ const app = Vue.createApp({
       monsterHealth: 100,
       currentRound: 0,
       winner: null,
+      logMessages: [],
     };
   },
-  // outsource the logic from html to computed property
   computed: {
     monsterBarStyles() {
       if (this.monsterHealth < 0) {
@@ -53,41 +53,52 @@ const app = Vue.createApp({
     startGame() {
       this.playerHealth = 100;
       this.monsterHealth = 100;
-      this.currentRound = 0;
       this.winner = null;
+      this.currentRound = 0;
+      this.logMessages = [];
     },
     attackMonster() {
       this.currentRound++;
-      // calculate a random nr. between 5 and 12
-      // Math.floor(Math.random() * (max - min)) + min;
       const attackValue = getRandomValue(5, 12);
       this.monsterHealth -= attackValue;
+      this.addLogMessage('player', 'attack', attackValue);
       this.attackPlayer();
     },
-    // monster attacks player and hits harder
     attackPlayer() {
-      const attackValue = getRandomValue(15, 8);
+      const attackValue = getRandomValue(8, 15);
       this.playerHealth -= attackValue;
+      this.addLogMessage('monster', 'attack', attackValue);
     },
     specialAttackMonster() {
       this.currentRound++;
       const attackValue = getRandomValue(10, 25);
       this.monsterHealth -= attackValue;
+      this.addLogMessage('player', 'special-attack', attackValue);
       this.attackPlayer();
     },
     healPlayer() {
+      this.currentRound++;
       const healValue = getRandomValue(8, 20);
-      // make sure you can't go above 100 health!
       if (this.playerHealth + healValue > 100) {
         this.playerHealth = 100;
       } else {
         this.playerHealth += healValue;
       }
+      this.addLogMessage('player', 'heal', healValue);
+      this.attackPlayer();
     },
     surrender() {
       this.winner = 'monster';
     },
+    addLogMessage(who, what, value) {
+      // push() adds smth. to the end of the array, unshift() adds at the beginning of the array (on top of the list)
+      this.logMessages.unshift({
+        actionBy: who,
+        actionType: what,
+        actionValue: value,
+      });
+    },
   },
 });
 
-app.mount('#game'); 
+app.mount('#game');
