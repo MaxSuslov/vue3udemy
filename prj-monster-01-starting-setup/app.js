@@ -50,6 +50,12 @@ const app = Vue.createApp({
     },
   },
   methods: {
+    startGame() {
+      this.playerHealth = 100;
+      this.monsterHealth = 100;
+      this.currentRound = 0;
+      this.winner = null;
+    },
     attackMonster() {
       this.currentRound++;
       // calculate a random nr. between 5 and 12
